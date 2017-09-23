@@ -3,6 +3,8 @@ package core
 import mail.*
 import org.simplejavamail.email.Email
 import org.simplejavamail.mailer.config.TransportStrategy
+import tool.Config.DEBUG
+import tool.Config.DEBUG_RECEIVED_MAIL_SET
 import tool.Config.EMAIL_HOST_CONFIG
 import util.EmailHostProtocol
 import util.ReceivedEmailSet
@@ -38,10 +40,12 @@ object Pool {
 }
 
 class Sender(private val sendEmail: SendEmail, private val transportStrategy: TransportStrategy) {
-	fun send(email: Email) = sendEmail.send(email, transportStrategy)
+	fun send(email: Email) =
+			if (DEBUG) Displayer.displayEmail(System.out, email)
+			else sendEmail.send(email, transportStrategy)
 	//TODO 要不要就EmailFromDecoder给JavaMail提PR？？？？
 }
 
 class Receiver(private val receiveEmail: ReceiveEmail, private val ssl: Boolean) {
-	fun receive(): ReceivedEmailSet = receiveEmail.receive(ssl)
+	fun receive(): ReceivedEmailSet = if (DEBUG) DEBUG_RECEIVED_MAIL_SET else receiveEmail.receive(ssl)
 }
