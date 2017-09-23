@@ -7,8 +7,8 @@ import tool.Config.DEBUG
 import tool.Config.DEBUG_RECEIVED_MAIL_SET
 import tool.Config.EMAIL_HOST_CONFIG
 import util.EmailHostProtocol
+import util.ReceivedEmail
 import util.ReceivedEmailSet
-import java.security.InvalidParameterException
 
 object Pool {
 
@@ -30,13 +30,10 @@ object Pool {
 	)
 
 	private fun handleReceiver(server: String, port: Int, username: String, password: String): Receiver =
-			when {
-				RECEIVER_CONFIG.protocol == EmailHostProtocol.IMAP ->
-					Receiver(IMAP(server, port, username, password), RECEIVER_CONFIG.ssl)
-				RECEIVER_CONFIG.protocol == EmailHostProtocol.POP3 ->
-					Receiver(POP3(server, port, username, password), RECEIVER_CONFIG.ssl)
-				else -> throw InvalidParameterException("unsupported protocol")
-			}
+			if (RECEIVER_CONFIG.protocol == EmailHostProtocol.POP3)
+				Receiver(POP3(server, port, username, password), RECEIVER_CONFIG.ssl)
+			else
+				Receiver(IMAP(server, port, username, password), RECEIVER_CONFIG.ssl)
 }
 
 class Sender(private val sendEmail: SendEmail, private val transportStrategy: TransportStrategy) {
@@ -48,4 +45,9 @@ class Sender(private val sendEmail: SendEmail, private val transportStrategy: Tr
 
 class Receiver(private val receiveEmail: ReceiveEmail, private val ssl: Boolean) {
 	fun receive(): ReceivedEmailSet = if (DEBUG) DEBUG_RECEIVED_MAIL_SET else receiveEmail.receive(ssl)
+
+	fun delete(receivedEmail: ReceivedEmail) {
+		if (!DEBUG)
+			receiveEmail.delete(receivedEmail)
+	}
 }

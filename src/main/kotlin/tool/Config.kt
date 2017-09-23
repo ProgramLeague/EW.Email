@@ -1,5 +1,6 @@
 package tool
 
+import org.json.JSONArray
 import org.json.JSONObject
 import org.json.JSONTokener
 import org.simplejavamail.email.Recipient
@@ -14,6 +15,7 @@ object Config {
 	private val OBJECT = JSONTokener(Files.newBufferedReader(Paths.get("config.json"))).nextValue() as JSONObject
 
 	val EMAIL_HOST_CONFIG = parseEmailHostConfig()
+	val PERMITTED_ADDRESSES = parseStringList(OBJECT.getJSONArray("permitted_addresses"))
 	val DEBUG = OBJECT.getBoolean("debug")
 	val DEBUG_RECEIVED_MAIL_SET =
 			ReceivedEmailSet(
@@ -29,6 +31,10 @@ object Config {
 									false,
 									"")
 					))
+
+	fun get(key: String): Any = OBJECT.get(key)
+
+	fun getInteger(key: String): Int = OBJECT.getInt(key)
 
 	private fun parseEmailHostConfig(): EmailAddressConfig {
 		val host = OBJECT.getJSONObject("email")
@@ -54,5 +60,11 @@ object Config {
 									jsonObject.getBoolean("ssl"))
 						})
 		)
+	}
+
+	private fun parseStringList(jsonArray: JSONArray): List<String> {
+		val list = ArrayList<String>()
+		(0..jsonArray.length()).mapTo(list) { jsonArray.getString(it) }
+		return list
 	}
 }
