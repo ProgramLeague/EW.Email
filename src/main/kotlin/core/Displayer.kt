@@ -9,16 +9,16 @@ object Displayer {
 	fun displayEmail(printStream: PrintStream, email: Email) {
 		printStream.println("Email No.${email.id}")
 		printStream.println("SUBJECT: ${email.subject}")
-		printStream.println("TO: ${parseRecipients(email.recipients)}>")
-		printStream.println("CONTENT: ${email.text}")
+		printStream.print("TO: ${parseRecipients(email.recipients)}>")
+		printStream.println("CONTENT: ${email.text}\n")
 	}
 
 	fun displayReceivedEmail(printStream: PrintStream, receivedEmail: ReceivedEmail) {
 		printStream.println("Email No.${receivedEmail.id}")
 		printStream.println("SUBJECT: ${receivedEmail.subject}")
-		printStream.println("FROM: ${parseRecipients(receivedEmail.from)}")
+		printStream.print("FROM: ${parseRecipients(receivedEmail.from)}")
 		printStream.println("SENT DATE: ${receivedEmail.sentDate}")
-		printStream.print("CONTENT: ${receivedEmail.content}")
+		printStream.println("CONTENT: ${receivedEmail.content}\n")
 	}
 
 	private fun parseRecipients(recipient: Collection<Recipient>): String {

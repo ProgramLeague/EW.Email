@@ -38,7 +38,7 @@ object Config {
 				host.getString("password"),
 				EmailHost(
 						let {
-							val jsonObject = OBJECT.getJSONObject("sender")
+							val jsonObject = host.getJSONObject("sender")
 							EmailHost.Sender(
 									jsonObject.getString("host"),
 									jsonObject.getInt("port"),
@@ -46,7 +46,7 @@ object Config {
 									TransportStrategy.valueOf(jsonObject.getString("transport_strategy").toUpperCase()))
 						},
 						let {
-							val jsonObject = OBJECT.getJSONObject("receiver")
+							val jsonObject = host.getJSONObject("receiver")
 							EmailHost.Receiver(
 									jsonObject.getString("host"),
 									jsonObject.getInt("port"),
