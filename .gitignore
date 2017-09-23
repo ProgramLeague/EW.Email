@@ -25,7 +25,7 @@ hs_err_pid*
 
 /src/test/kotlin/mail/
 /.idea
-/build
+/build/
 /out/
 /.gradle/
 /EmailEverything.iml

@@ -56,9 +56,10 @@ class Share(private val server: String, private val port: Int,
 			val itFrom = it.from
 			val from = ArrayList<Recipient>()
 			for (thisFrom in itFrom) {
-				val string = EmailFromDecoder.decode(thisFrom.toString().replace(" ", ""))
-				val name = string.substringBefore('<')
-				val addressT = string.removePrefix(name)
+				val string = thisFrom.toString().trim().replace(" ", "")
+				val nameT = string.substringBefore('<')
+				val name = EmailFromDecoder.decode(nameT)
+				val addressT = string.removePrefix(nameT)
 				val address = addressT.substring(1, addressT.length - 1)
 				// =?utf-8?Q?=E5=9B=BE=E7=81=B5=E7=94=B5=E5=AD=90=E4=B9=A6?= <ebook@turingbook.com>
 				// Twitter <info@twitter.com>
