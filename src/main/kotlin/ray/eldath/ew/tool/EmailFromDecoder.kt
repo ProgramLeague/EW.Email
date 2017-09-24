@@ -1,4 +1,4 @@
-package tool
+package ray.eldath.ew.tool
 
 import org.apache.commons.codec.net.QuotedPrintableCodec
 import java.nio.charset.Charset

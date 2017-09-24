@@ -14,8 +14,11 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'kotlin'
+apply plugin: 'application'
 
+mainClassName = 'ray.eldath.ew.core.Core'
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
 	maven {
@@ -37,11 +40,6 @@ dependencies {
 	compile group: 'commons-codec', name: 'commons-codec', version: '1.10'
 	// https://mvnrepository.com/artifact/org.json/json
 	compile group: 'org.json', name: 'json', version: '20170516'
-}
-
-compileKotlin {
-	kotlinOptions.jvmTarget = "1.8"
-}
-compileTestKotlin {
-	kotlinOptions.jvmTarget = "1.8"
+	// https://mvnrepository.com/artifact/org.fusesource.jansi/jansi
+	compile group: 'org.fusesource.jansi', name: 'jansi', version: '1.16'
 }

@@ -1,9 +1,9 @@
-package mail
+package ray.eldath.ew.mail
 
 import org.simplejavamail.email.Recipient
-import tool.EmailFromDecoder
-import util.ReceivedEmail
-import util.ReceivedEmailSet
+import ray.eldath.ew.tool.EmailFromDecoder
+import ray.eldath.ew.util.ReceivedEmail
+import ray.eldath.ew.util.ReceivedEmailSet
 import java.io.Closeable
 import java.security.Security
 import java.time.ZoneId

@@ -1,9 +1,9 @@
-package handler
+package ray.eldath.ew.handler
 
-import core.Sender
 import org.json.JSONObject
 import org.json.JSONTokener
-import util.ReceivedEmail
+import ray.eldath.ew.core.Sender
+import ray.eldath.ew.util.ReceivedEmail
 import java.net.URL
 
 object IPAddress : Handler {

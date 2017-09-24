@@ -1,9 +1,9 @@
-package util
+package ray.eldath.ew.util
 
-import core.Sender
 import org.simplejavamail.email.EmailBuilder
 import org.simplejavamail.email.Recipient
-import tool.Config
+import ray.eldath.ew.core.Sender
+import ray.eldath.ew.tool.Config
 import java.time.LocalDate
 
 class ReceivedEmail(val id: Int, val subject: String, val from: Collection<Recipient>, val size: Int,

@@ -1,9 +1,9 @@
-package mail
+package ray.eldath.ew.mail
 
 import org.simplejavamail.email.Email
 import org.simplejavamail.mailer.config.TransportStrategy
-import util.ReceivedEmail
-import util.ReceivedEmailSet
+import ray.eldath.ew.util.ReceivedEmail
+import ray.eldath.ew.util.ReceivedEmailSet
 import java.io.Closeable
 
 interface ReceiveEmail : Closeable {

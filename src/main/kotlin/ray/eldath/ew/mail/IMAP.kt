@@ -1,7 +1,7 @@
-package mail
+package ray.eldath.ew.mail
 
-import util.ReceivedEmail
-import util.ReceivedEmailSet
+import ray.eldath.ew.util.ReceivedEmail
+import ray.eldath.ew.util.ReceivedEmailSet
 
 class IMAP(
 		private val server: String, private val port: Int,

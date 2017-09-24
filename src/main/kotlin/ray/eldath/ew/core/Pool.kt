@@ -1,14 +1,14 @@
-package core
+package ray.eldath.ew.core
 
-import mail.*
 import org.simplejavamail.email.Email
 import org.simplejavamail.mailer.config.TransportStrategy
-import tool.Config.DEBUG
-import tool.Config.DEBUG_RECEIVED_MAIL_SET
-import tool.Config.EMAIL_HOST_CONFIG
-import util.EmailHostProtocol
-import util.ReceivedEmail
-import util.ReceivedEmailSet
+import ray.eldath.ew.mail.*
+import ray.eldath.ew.tool.Config.DEBUG
+import ray.eldath.ew.tool.Config.DEBUG_RECEIVED_MAIL_SET
+import ray.eldath.ew.tool.Config.EMAIL_HOST_CONFIG
+import ray.eldath.ew.util.EmailHostProtocol
+import ray.eldath.ew.util.ReceivedEmail
+import ray.eldath.ew.util.ReceivedEmailSet
 
 object Pool {
 

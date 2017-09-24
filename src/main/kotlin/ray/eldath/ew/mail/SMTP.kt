@@ -1,4 +1,4 @@
-package mail
+package ray.eldath.ew.mail
 
 import org.simplejavamail.email.Email
 import org.simplejavamail.mailer.Mailer

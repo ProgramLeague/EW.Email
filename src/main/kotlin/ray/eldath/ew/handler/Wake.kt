@@ -1,9 +1,9 @@
-package handler
+package ray.eldath.ew.handler
 
-import core.Sender
 import org.slf4j.LoggerFactory
-import tool.Config
-import util.ReceivedEmail
+import ray.eldath.ew.core.Sender
+import ray.eldath.ew.tool.Config
+import ray.eldath.ew.util.ReceivedEmail
 import java.net.DatagramPacket
 import java.net.DatagramSocket
 import java.net.InetAddress

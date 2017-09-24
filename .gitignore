@@ -23,7 +23,7 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-/src/test/kotlin/mail/
+/src/test/kotlin/ray/eldath/ew/mail/
 /.idea
 /build/
 /out/

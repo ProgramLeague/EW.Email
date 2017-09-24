@@ -1,9 +1,11 @@
-package core
+package ray.eldath.ew.core
 
-import handler.MainHandler
+import org.fusesource.jansi.Ansi.ansi
+import org.fusesource.jansi.AnsiConsole
 import org.slf4j.LoggerFactory
-import tool.Config
-import tool.Constants
+import ray.eldath.ew.handler.MainHandler
+import ray.eldath.ew.tool.Config
+import ray.eldath.ew.tool.Constants
 import java.util.concurrent.ScheduledThreadPoolExecutor
 import java.util.concurrent.TimeUnit
 
@@ -12,7 +14,9 @@ object Core {
 
 	@JvmStatic
 	fun main(vararg args: String) {
-		println("Welcome to EmailEverything - v${Constants.VERSION}${if (Config.DEBUG) " - DEBUG is on" else ""}")
+		AnsiConsole.systemInstall()
+		println(ansi().eraseScreen().fgRed()
+				.a("Welcome to EmailEverything - v${Constants.VERSION}${if (Config.DEBUG) " - DEBUG is on" else ""}"))
 		println("System initializing...")
 		val service = ScheduledThreadPoolExecutor(3)
 		service.scheduleAtFixedRate(
@@ -32,8 +36,10 @@ object Core {
 
 		override fun run() {
 			val list = Pool.RECEIVER.receive()
-			if (list.unreadMessageCount == 0)
+			if (list.unreadMessageCount == 0) {
+				LOGGER.info("no unread message, exited")
 				return
+			}
 			LOGGER.info("received ${list.allMessageCount} mails, handling...")
 			for (email in list.messages)
 				MainHandler.handle(email)

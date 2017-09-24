@@ -1,8 +1,8 @@
-package tool
+package ray.eldath.ew.tool
 
 import org.simplejavamail.email.Recipient
-import util.ReceivedEmail
-import util.ReceivedEmailSet
+import ray.eldath.ew.util.ReceivedEmail
+import ray.eldath.ew.util.ReceivedEmailSet
 import java.time.LocalDate
 import javax.mail.Message
 

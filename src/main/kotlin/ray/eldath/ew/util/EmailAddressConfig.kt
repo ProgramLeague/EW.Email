@@ -1,4 +1,4 @@
-package util
+package ray.eldath.ew.util
 
 import org.simplejavamail.mailer.config.TransportStrategy
 

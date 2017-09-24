@@ -1,8 +1,8 @@
-package core
+package ray.eldath.ew.core
 
 import org.simplejavamail.email.Email
 import org.simplejavamail.email.Recipient
-import util.ReceivedEmail
+import ray.eldath.ew.util.ReceivedEmail
 import java.io.PrintStream
 
 object Displayer {

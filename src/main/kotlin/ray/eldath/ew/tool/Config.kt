@@ -1,14 +1,14 @@
-package tool
+package ray.eldath.ew.tool
 
 import org.json.JSONArray
 import org.json.JSONObject
 import org.json.JSONTokener
 import org.simplejavamail.mailer.config.TransportStrategy
-import tool.DataFaker.fakeReceivedEmail
-import tool.DataFaker.fakeReceivedEmailSet
-import util.EmailAddressConfig
-import util.EmailHost
-import util.EmailHostProtocol
+import ray.eldath.ew.tool.DataFaker.fakeReceivedEmail
+import ray.eldath.ew.tool.DataFaker.fakeReceivedEmailSet
+import ray.eldath.ew.util.EmailAddressConfig
+import ray.eldath.ew.util.EmailHost
+import ray.eldath.ew.util.EmailHostProtocol
 import java.nio.file.Files
 import java.nio.file.Paths
 
