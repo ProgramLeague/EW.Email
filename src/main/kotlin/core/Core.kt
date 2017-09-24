@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory
 import tool.Config
 import tool.Constants
 import java.util.concurrent.ScheduledThreadPoolExecutor
-import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
 
 object Core {
@@ -13,12 +12,15 @@ object Core {
 
 	@JvmStatic
 	fun main(vararg args: String) {
-		println("Welcome to EmailEverything - v${Constants.VERSION}")
+		println("Welcome to EmailEverything - v${Constants.VERSION}${if (Config.DEBUG) " - DEBUG is on" else ""}")
 		println("System initializing...")
 		val service = ScheduledThreadPoolExecutor(3)
-		service.setKeepAliveTime(20, TimeUnit.SECONDS)
-		service.rejectedExecutionHandler = ThreadPoolExecutor.DiscardPolicy()
-		service.schedule(ReceiveAndHandle(), Config.getInteger("update_frequency").toLong(), TimeUnit.SECONDS)
+		service.scheduleAtFixedRate(
+				ReceiveAndHandle(),
+				1,
+				if (Config.DEBUG) 10 else Config.getInteger("update_frequency").toLong(),
+				TimeUnit.SECONDS
+		)
 		LOGGER.info("scheduled thread executor initialed")
 		val config = Config.EMAIL_HOST_CONFIG
 		println("System initialized. Now listening email from ${config.name} <${config.address}>...")

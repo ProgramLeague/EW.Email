@@ -5,29 +5,27 @@ import org.slf4j.LoggerFactory
 import tool.Config
 import util.ReceivedEmail
 
-fun <T> Collection<T>.containsAny(input: Collection<T>): Boolean {
-	for (thisI in input)
-		if (this.contains(thisI))
-			return true
-	return false
-}
+fun <T> Collection<T>.containsAny(input: Collection<T>): Boolean = input.any { this.contains(it) }
 
 object MainHandler {
 	private val LOGGER = LoggerFactory.getLogger(MainHandler.javaClass)
-	private val allHandler = arrayListOf<Handler>(IPAddress)
+	private val allHandler = arrayListOf(IPAddress, Wake) //TODO register handler here
 
 	fun handle(receivedEmail: ReceivedEmail) {
-		if (!Config.PERMITTED_ADDRESSES.containsAny(receivedEmail.from))
+		LOGGER.debug("\thandling ${if (receivedEmail.seen) "seen" else "unseen"} mail No.${receivedEmail.id}")
+		if (!Config.PERMITTED_ADDRESSES.containsAny(receivedEmail.from.map { it.address }))
 			return
 
 		val subject = receivedEmail.subject
-		for (handler in allHandler)
-			if (subject.matches(handler.titleRegex())) {
+		LOGGER.debug("\tmail subject: $subject")
+		for (handler in allHandler) {
+			if (subject.trim().matches(handler.titleRegex())) {
 				handler.handle(receivedEmail, Pool.SENDER)
 				LOGGER.info("email with subject `$subject` handled by handler ${handler.javaClass.name}")
 				Pool.RECEIVER.delete(receivedEmail)
 				LOGGER.info("handled email deleted")
 				return
 			}
+		}
 	}
 }

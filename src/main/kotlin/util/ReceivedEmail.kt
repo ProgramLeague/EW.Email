@@ -13,8 +13,8 @@ class ReceivedEmail(val id: Int, val subject: String, val from: Collection<Recip
 
 	fun reply(sender: Sender, subject: String, content: String) =
 			sender.send(EmailBuilder()
+					.to(*from.toTypedArray())
 					.from(Config.EMAIL_HOST_CONFIG.name, Config.EMAIL_HOST_CONFIG.address)
-					.to(from).first
 					.subject(subject)
 					.text(content).build())
 }

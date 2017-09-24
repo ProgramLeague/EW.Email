@@ -3,38 +3,41 @@ package tool
 import org.json.JSONArray
 import org.json.JSONObject
 import org.json.JSONTokener
-import org.simplejavamail.email.Recipient
 import org.simplejavamail.mailer.config.TransportStrategy
-import util.*
+import tool.DataFaker.fakeReceivedEmail
+import tool.DataFaker.fakeReceivedEmailSet
+import util.EmailAddressConfig
+import util.EmailHost
+import util.EmailHostProtocol
 import java.nio.file.Files
 import java.nio.file.Paths
-import java.time.LocalDate
-import javax.mail.Message
+
+fun <T> List<T>.addSingle(entry: T): List<T> {
+	val list = this.toMutableList()
+	list.add(entry)
+	return list
+}
 
 object Config {
 	private val OBJECT = JSONTokener(Files.newBufferedReader(Paths.get("config.json"))).nextValue() as JSONObject
+	private val HANDLER_CONFIG = OBJECT.getJSONObject("handler")!!
 
 	val EMAIL_HOST_CONFIG = parseEmailHostConfig()
-	val PERMITTED_ADDRESSES = parseStringList(OBJECT.getJSONArray("permitted_addresses"))
+	val PERMITTED_ADDRESSES = parseStringList(OBJECT.getJSONArray("permitted_addresses")).addSingle("debug@debug.com")
 	val DEBUG = OBJECT.getBoolean("debug")
 	val DEBUG_RECEIVED_MAIL_SET =
-			ReceivedEmailSet(
-					1,
-					1,
-					listOf(
-							ReceivedEmail(
-									1,
-									"ip",
-									listOf(Recipient("Ray-Eldath", "ray.eldath@gmail.com", Message.RecipientType.TO)),
-									12,
-									LocalDate.now(),
-									false,
-									"")
-					))
+			fakeReceivedEmailSet(listOf(
+					fakeReceivedEmail("ip"),
+					fakeReceivedEmail("wake Ray Eldath's Desktop")
+			))
 
 	fun get(key: String): Any = OBJECT.get(key)
 
 	fun getInteger(key: String): Int = OBJECT.getInt(key)
+
+	fun getJSONObject(key: String): JSONObject = OBJECT.getJSONObject(key)
+
+	fun getHandlerConfig(handler: String) = HANDLER_CONFIG.getJSONObject(handler)!!
 
 	private fun parseEmailHostConfig(): EmailAddressConfig {
 		val host = OBJECT.getJSONObject("email")
@@ -64,7 +67,7 @@ object Config {
 
 	private fun parseStringList(jsonArray: JSONArray): List<String> {
 		val list = ArrayList<String>()
-		(0..jsonArray.length()).mapTo(list) { jsonArray.getString(it) }
+		(0 until jsonArray.length()).mapTo(list) { jsonArray.getString(it) }
 		return list
 	}
 }

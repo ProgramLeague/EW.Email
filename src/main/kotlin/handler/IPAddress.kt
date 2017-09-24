@@ -5,7 +5,6 @@ import org.json.JSONObject
 import org.json.JSONTokener
 import util.ReceivedEmail
 import java.net.URL
-import java.util.regex.Pattern
 
 object IPAddress : Handler {
 
@@ -18,5 +17,5 @@ object IPAddress : Handler {
 				.openStream()).nextValue() as JSONObject).getString("ip")
 	}
 
-	override fun titleRegex(): Pattern = Pattern.compile("ip")
+	override fun titleRegex(): Regex = Regex("ip")
 }
