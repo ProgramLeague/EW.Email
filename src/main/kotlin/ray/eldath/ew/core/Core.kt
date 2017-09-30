@@ -15,13 +15,13 @@ object Core {
 	@JvmStatic
 	fun main(vararg args: String) {
 		AnsiConsole.systemInstall()
-		println(ansi().eraseScreen().fgRed()
-				.a("Welcome to EmailEverything - v${Constants.VERSION}${if (Config.DEBUG) " - DEBUG is on" else ""}"))
+		println(ansi().eraseScreen().fgBrightYellow()
+				.a("Welcome to EmailEverything - v${Constants.VERSION}${if (Config.DEBUG) " - DEBUG is on" else ""}").reset())
 		println("System initializing...")
 		val service = ScheduledThreadPoolExecutor(3)
 		service.scheduleAtFixedRate(
 				ReceiveAndHandle(),
-				1,
+				5,
 				if (Config.DEBUG) 10 else Config.getInteger("update_frequency").toLong(),
 				TimeUnit.SECONDS
 		)

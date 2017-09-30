@@ -8,14 +8,12 @@ import java.net.URL
 
 object IPAddress : Handler {
 
-	override fun handle(receivedEmail: ReceivedEmail, sender: Sender) {
-		receivedEmail.reply(sender, "IP address", queryIPAddress())
-	}
+	override fun handle(receivedEmail: ReceivedEmail, sender: Sender) =
+			receivedEmail.reply(sender, "IP address", queryIPAddress())
 
-	private fun queryIPAddress(): String {
-		return (JSONTokener(URL("https://api.ipify.org/?format=json")
-				.openStream()).nextValue() as JSONObject).getString("ip")
-	}
+	private fun queryIPAddress(): String =
+			(JSONTokener(URL("https://api.ipify.org/?format=json")
+					.openStream()).nextValue() as JSONObject).getString("ip")
 
 	override fun titleRegex(): Regex = Regex("ip")
 }

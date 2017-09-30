@@ -2,9 +2,12 @@ group 'tech.ray-eldath'
 version '0.0.1'
 
 buildscript {
-	ext.kotlin_version = '1.1.50'
+	ext.kotlin_version = '1.1.51'
 
 	repositories {
+		maven {
+			url "http://maven.aliyun.com/nexus/content/groups/public"
+		}
 		mavenCentral()
 	}
 	dependencies {
@@ -42,4 +45,8 @@ dependencies {
 	compile group: 'org.json', name: 'json', version: '20170516'
 	// https://mvnrepository.com/artifact/org.fusesource.jansi/jansi
 	compile group: 'org.fusesource.jansi', name: 'jansi', version: '1.16'
+}
+
+test {
+	exclude('ray/eldath/ew/test/mail/*')
 }

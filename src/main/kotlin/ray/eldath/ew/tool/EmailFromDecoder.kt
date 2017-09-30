@@ -4,27 +4,6 @@ import org.apache.commons.codec.net.QuotedPrintableCodec
 import java.nio.charset.Charset
 import java.util.*
 
-interface IExample {
-	fun doSomething()
-	fun doSomething1()
-	fun `($)`()
-}
-
-class Example : IExample {
-	override fun doSomething() {
-	}
-
-	override fun doSomething1() {
-	}
-
-	override fun `($)`() {
-	}
-
-	// 哇
-	fun `2333`() {
-	}
-}
-
 object EmailFromDecoder {
 	@JvmStatic
 	fun decode(input: String): String {

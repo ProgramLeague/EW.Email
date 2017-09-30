@@ -35,6 +35,8 @@ object Config {
 
 	fun getInteger(key: String): Int = OBJECT.getInt(key)
 
+	fun getString(key: String): String = OBJECT.getString(key)
+
 	fun getJSONObject(key: String): JSONObject = OBJECT.getJSONObject(key)
 
 	fun getHandlerConfig(handler: String) = HANDLER_CONFIG.getJSONObject(handler)!!

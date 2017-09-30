@@ -4,6 +4,7 @@ import org.simplejavamail.email.EmailBuilder
 import org.simplejavamail.email.Recipient
 import ray.eldath.ew.core.Sender
 import ray.eldath.ew.tool.Config
+import ray.eldath.ew.tool.Constants
 import java.time.LocalDate
 
 class ReceivedEmail(val id: Int, val subject: String, val from: Collection<Recipient>, val size: Int,
@@ -15,7 +16,7 @@ class ReceivedEmail(val id: Int, val subject: String, val from: Collection<Recip
 			sender.send(EmailBuilder()
 					.to(*from.toTypedArray())
 					.from(Config.EMAIL_HOST_CONFIG.name, Config.EMAIL_HOST_CONFIG.address)
-					.subject(subject)
+					.subject("${Constants.REPLY_SUBJECT_PREFIX} $subject")
 					.text(content).build())
 }
 

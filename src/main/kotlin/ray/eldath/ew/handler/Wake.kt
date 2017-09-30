@@ -40,7 +40,7 @@ object Wake : Handler {
 	private class TargetEntry(val name: String, val mac: String, val ip: String, val port: Int)
 
 	/**
-	 * Mostly copied from <a href=https://github.com/mafrosis/Wake-On-Lan/blob/master/src/net/mafro/android/wakeonlan/MagicPacket.java>MagicPacket.java</a>
+	 * Most copied from [MagicPacket.java](https://github.com/mafrosis/Wake-On-Lan/blob/master/src/net/mafro/android/wakeonlan/MagicPacket.java)
 	 */
 	private object WakeNow {
 		private const val SEPARATOR = ':'
