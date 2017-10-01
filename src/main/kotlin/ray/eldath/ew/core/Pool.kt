@@ -40,7 +40,6 @@ class Sender(private val sendEmail: SendEmail, private val transportStrategy: Tr
 	fun send(email: Email) =
 			if (DEBUG) Displayer.displayEmail(System.out, email)
 			else sendEmail.send(email, transportStrategy)
-	//TODO 要不要就EmailFromDecoder给JavaMail提PR？？？？
 }
 
 class Receiver(private val receiveEmail: ReceiveEmail, private val ssl: Boolean) {
@@ -50,4 +49,6 @@ class Receiver(private val receiveEmail: ReceiveEmail, private val ssl: Boolean)
 		if (!DEBUG)
 			receiveEmail.delete(receivedEmail)
 	}
+
+	fun close() = receiveEmail.close()
 }

@@ -18,6 +18,8 @@ class ReceivedEmail(val id: Int, val subject: String, val from: Collection<Recip
 					.from(Config.EMAIL_HOST_CONFIG.name, Config.EMAIL_HOST_CONFIG.address)
 					.subject("${Constants.REPLY_SUBJECT_PREFIX} $subject")
 					.text(content).build())
+
+	fun copy(subjectN: String) = ReceivedEmail(id, subjectN, from, size, sentDate, seen, content)
 }
 
 class ReceivedEmailSet(val allMessageCount: Int, val unreadMessageCount: Int, val messages: List<ReceivedEmail>)

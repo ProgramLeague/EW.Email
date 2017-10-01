@@ -30,3 +30,4 @@ hs_err_pid*
 /.gradle/
 /EmailEverything.iml
 /config.json
+/log/

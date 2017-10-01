@@ -27,7 +27,7 @@ object Config {
 	val DEBUG = OBJECT.getBoolean("debug")
 	val DEBUG_RECEIVED_MAIL_SET =
 			fakeReceivedEmailSet(listOf(
-					fakeReceivedEmail("ip"),
+					fakeReceivedEmail("heartbeat & ip"),
 					fakeReceivedEmail("wake Ray Eldath's Desktop")
 			))
 

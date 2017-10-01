@@ -44,6 +44,7 @@ object Core {
 			for (email in list.messages)
 				MainHandler.handle(email)
 			LOGGER.info("all mails handled")
+			Pool.RECEIVER.close()
 		}
 	}
 }

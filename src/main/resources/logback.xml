@@ -1,14 +1,27 @@
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
-	<conversionRule conversionWord="highlight"
-	                converterClass="ray.eldath.ew.tool.HighlightingCompositeConverter"/>
+	<conversionRule conversionWord="highlight" converterClass="ray.eldath.ew.tool.HighlightingCompositeConverter"/>
+
+	<property name="LOG_HOME" value="./log"/>
 
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
-			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %highlight(%-5level) %logger{36} - %highlight(%msg) %n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/log.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>7</maxHistory>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg%n</pattern>
 		</encoder>
 	</appender>
 
 	<root level="INFO">
 		<appender-ref ref="STDOUT"/>
+		<appender-ref ref="FILE"/>
 	</root>
 </configuration>

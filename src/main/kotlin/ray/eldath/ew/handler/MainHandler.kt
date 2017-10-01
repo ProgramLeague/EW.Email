@@ -18,12 +18,24 @@ object MainHandler {
 
 		val subject = receivedEmail.subject
 		LOGGER.debug("\tmail subject: $subject")
+		if (subject.contains("&")) {
+			LOGGER.info("handling multi-commend mail...")
+			val split = subject.split("&")
+			split
+					.filterNot { it.trim().isEmpty() }
+					.forEach { handleT(receivedEmail.copy(it.trim())) }
+		}
+		handleT(receivedEmail)
+		Pool.RECEIVER.delete(receivedEmail)
+		LOGGER.info("handled email deleted")
+	}
+
+	private fun handleT(receivedEmail: ReceivedEmail) {
+		val subject = receivedEmail.subject
 		for (handler in allHandler) {
 			if (subject.trim().matches(handler.titleRegex())) {
 				handler.handle(receivedEmail, Pool.SENDER)
-				LOGGER.info("email with subject `$subject` handled by handler ${handler.javaClass.name}")
-				Pool.RECEIVER.delete(receivedEmail)
-				LOGGER.info("handled email deleted")
+				LOGGER.info("\temail with subject `$subject` handled by handler ${handler.javaClass.name}")
 				return
 			}
 		}
