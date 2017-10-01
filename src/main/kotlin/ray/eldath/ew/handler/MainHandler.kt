@@ -35,7 +35,7 @@ object MainHandler {
 		for (handler in allHandler) {
 			if (subject.trim().matches(handler.titleRegex())) {
 				handler.handle(receivedEmail, Pool.SENDER)
-				LOGGER.info("\temail with subject `$subject` handled by handler ${handler.javaClass.name}")
+				LOGGER.info("email with subject `$subject` handled by handler ${handler.javaClass.name}")
 				return
 			}
 		}

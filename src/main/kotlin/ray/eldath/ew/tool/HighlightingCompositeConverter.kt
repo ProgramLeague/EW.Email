@@ -4,6 +4,7 @@ import ch.qos.logback.classic.Level
 import ch.qos.logback.classic.spi.ILoggingEvent
 import ch.qos.logback.core.pattern.color.ANSIConstants
 import ch.qos.logback.core.pattern.color.ForegroundCompositeConverterBase
+import org.simplejavamail.mailer.config.TransportStrategy
 
 
 /**
@@ -20,5 +21,6 @@ class HighlightingCompositeConverter : ForegroundCompositeConverterBase<ILogging
 			Level.INFO_INT -> ANSIConstants.CYAN_FG // use CYAN instead of BLUE
 			else -> ANSIConstants.DEFAULT_FG
 		}
+		TransportStrategy.SMTP_PLAIN
 	}
 }
