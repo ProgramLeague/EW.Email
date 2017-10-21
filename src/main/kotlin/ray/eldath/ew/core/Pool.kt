@@ -31,9 +31,10 @@ object Pool {
 
 	private fun handleReceiver(server: String, port: Int, username: String, password: String): Receiver =
 			if (RECEIVER_CONFIG.protocol == EmailHostProtocol.POP3)
-				Receiver(POP3(server, port, username, password), RECEIVER_CONFIG.ssl)
+				Receiver(POP3(server, port, username, password, RECEIVER_CONFIG.ssl))
 			else
-				Receiver(IMAP(server, port, username, password), RECEIVER_CONFIG.ssl)
+				Receiver(IMAP(server, port, username, password, RECEIVER_CONFIG.ssl))
+
 }
 
 class Sender(private val sendEmail: SendEmail, private val transportStrategy: TransportStrategy) {
@@ -42,8 +43,8 @@ class Sender(private val sendEmail: SendEmail, private val transportStrategy: Tr
 			else sendEmail.send(email, transportStrategy)
 }
 
-class Receiver(private val receiveEmail: ReceiveEmail, private val ssl: Boolean) {
-	fun receive(): ReceivedEmailSet = if (DEBUG) DEBUG_RECEIVED_MAIL_SET else receiveEmail.receive(ssl)
+class Receiver(private val receiveEmail: ReceiveEmail) {
+	fun receive(): ReceivedEmailSet = if (DEBUG) DEBUG_RECEIVED_MAIL_SET else receiveEmail.receive()
 
 	fun delete(receivedEmail: ReceivedEmail) {
 		if (!DEBUG)

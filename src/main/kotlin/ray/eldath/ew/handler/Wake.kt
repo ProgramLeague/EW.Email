@@ -80,7 +80,7 @@ object Wake : Handler {
 			var newMac = ""
 			if (mac1.matches("([a-zA-Z0-9]){12}".toRegex())) {
 				// expand 12 chars into a valid mac address
-				for (i in 0..mac1.length - 1) {
+				for (i in 0 until mac1.length) {
 					if (i > 1 && i % 2 == 0)
 						newMac += ":"
 					newMac += mac1[i]

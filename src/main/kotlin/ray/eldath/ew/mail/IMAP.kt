@@ -3,15 +3,11 @@ package ray.eldath.ew.mail
 import ray.eldath.ew.util.ReceivedEmail
 import ray.eldath.ew.util.ReceivedEmailSet
 
-class IMAP(
-		private val server: String, private val port: Int,
-		private val username: String, private val password: String) : ReceiveEmail {
+class IMAP(server: String, port: Int, username: String, password: String, ssl: Boolean) : ReceiveEmail {
 
-	private val share = Share(server, port, username, password)
+	private val share = Share("imap", server, port, username, password, ssl)
 
-	override fun receive(ssl: Boolean): ReceivedEmailSet = share.receive("imap", ssl)
-
-	override fun receive(): ReceivedEmailSet = receive(false)
+	override fun receive(): ReceivedEmailSet = share.receive()
 
 	override fun delete(receivedEmail: ReceivedEmail) = share.delete(receivedEmail)
 

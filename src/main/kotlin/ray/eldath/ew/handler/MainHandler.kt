@@ -9,7 +9,7 @@ fun <T> Collection<T>.containsAny(input: Collection<T>): Boolean = input.any { t
 
 object MainHandler {
 	private val LOGGER = LoggerFactory.getLogger(MainHandler.javaClass)
-	private val allHandler = arrayListOf(IPAddress, Wake, Heartbeat) //TODO register ray.eldath.ew.handler here
+	private val allHandler = arrayListOf(IPAddress, Wake, Heartbeat) //TODO register handler here
 
 	fun handle(receivedEmail: ReceivedEmail) {
 		LOGGER.debug("\thandling ${if (receivedEmail.seen) "seen" else "unseen"} mail No.${receivedEmail.id}")

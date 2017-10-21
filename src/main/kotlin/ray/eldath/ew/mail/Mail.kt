@@ -9,8 +9,6 @@ import java.io.Closeable
 interface ReceiveEmail : Closeable {
 	fun receive(): ReceivedEmailSet
 
-	fun receive(ssl: Boolean): ReceivedEmailSet
-
 	fun delete(receivedEmail: ReceivedEmail)
 
 	override fun close()

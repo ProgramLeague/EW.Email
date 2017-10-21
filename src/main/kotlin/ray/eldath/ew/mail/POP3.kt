@@ -3,18 +3,13 @@ package ray.eldath.ew.mail
 import ray.eldath.ew.util.ReceivedEmail
 import ray.eldath.ew.util.ReceivedEmailSet
 
-class POP3(private val server: String, private val port: Int,
-           private val username: String, private val password: String) : ReceiveEmail {
+class POP3(server: String, port: Int, username: String, password: String, ssl: Boolean) : ReceiveEmail {
 
-	private val share = Share(server, port, username, password)
+	private val share = Share("pop3", server, port, username, password, ssl)
 
-	override fun receive(ssl: Boolean): ReceivedEmailSet = share.receive("pop3", ssl)
-
-	override fun receive(): ReceivedEmailSet = receive(false)
-
+	override fun receive(): ReceivedEmailSet = share.receive()
 
 	override fun delete(receivedEmail: ReceivedEmail) = share.delete(receivedEmail)
-
 
 	override fun close() = share.close()
 }

@@ -13,7 +13,7 @@ object DataFaker {
 			ReceivedEmail(
 					id++,
 					contentAndSubject,
-					listOf(Recipient("Debug", "debug@debug.com", Message.RecipientType.TO)),
+					listOf(Recipient("Debug 测试人员", "debug@debug.com", Message.RecipientType.TO)),
 					5,
 					LocalDate.now(),
 					false,

@@ -12,17 +12,20 @@ import javax.mail.*
 import kotlin.collections.ArrayList
 
 
-class Share(private val server: String, private val port: Int,
-            private val username: String, private val password: String) : Closeable {
+class Share(protocol: String, server: String, port: Int,
+            private val username: String, private val password: String, ssl: Boolean) : Closeable {
 
-	private val DEBUG = false
+	companion object {
+		private const val DEBUG = false
+	}
+
+	private val prop = Properties()
 
 	private lateinit var store: Store
 	private lateinit var folder: Folder
 	private lateinit var messages: Array<Message>
 
-	fun receive(protocol: String, ssl: Boolean): ReceivedEmailSet {
-		val prop = Properties()
+	init {
 		prop.put("mail.store.protocol", protocol)
 		prop.put("mail.$protocol.host", server)
 		prop.put("mail.$protocol.port", port)
@@ -33,6 +36,9 @@ class Share(private val server: String, private val port: Int,
 			prop.put("mail.$protocol.socketFactory.port", port)
 			prop.put("mail.$protocol.auth", true)
 		}
+	}
+
+	fun receive(): ReceivedEmailSet {
 		val session = Session.getDefaultInstance(prop)
 		session.debug = DEBUG
 		store = session.store
@@ -53,8 +59,9 @@ class Share(private val server: String, private val port: Int,
 		val result: ArrayList<ReceivedEmail> = ArrayList()
 		for (index in messages.indices) {
 			val it = messages[index]
-			val itFrom = it.from
+			val itFrom: Array<Address> = it.from
 			val from = ArrayList<Recipient>()
+
 			for (thisFrom in itFrom) {
 				val string = thisFrom.toString().trim().replace(" ", "")
 				val nameT = string.substringBefore('<')
