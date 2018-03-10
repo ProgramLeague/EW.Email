@@ -1,4 +1,4 @@
-# EmailEverything ![](https://www.gnu.org/graphics/gplv3-127x51.png)
+# EW.Email v1.0.0 ![](https://www.gnu.org/graphics/gplv3-127x51.png)
 Use email to wake your PC, and so on.
 
 ## Screenshot
@@ -22,29 +22,40 @@ And you will receive:
 
 ## Using
 
+## Basic using
+
 1. Decompression RELEASE file which downloaded [here](github.com/ProgramLeague/EmailEverything/releases/latest).
-2. Create file `config.json` under directory `EmailEverything-VERSION/bin`.
+2. Create file `config.json` under directory `EW.Email-VERSION/bin`.
 3. Config `config.json` which describe in next part.
-4. Execute file `EmailEverything` (Linux) or `EmailEverything.bat` (Windows).
+4. Execute file `EW.Email` (Linux) or `EW.Email.bat` (Windows).
 5. Star and Follow this project :-)
-  
+## Start when system started
+
+**Following instructions are for Linux system.** *(Tested on Debian 8)* 
+
+**For Windows, just add `EW.Email.bat` into your list of startup items.**
+
+1. Download [ew](https://github.com/ProgramLeague/EW.Email/blob/master/ew) file and move it into `/etc/init.d`. (remember in `sudo`! )
+2. Use `chkconfig` to set it start automatically.
+
 ## Configuration
 
 This part explains config file `config.json`.
- 
+
 `config.json`:
-```
+```json
 {
   "update_frequency": 60,             // Frequency of connect email server and handle email.
+  "daemon": true,                     // Use daemon mode. If on, log will outputs into temp file, not stdout.
   "zone_id": "Asia/Shanghai",         // Your zone id, used for zoned time. All available values see `https://docs.oracle.com/javase/8/docs/api/java/time/ZoneId.html#SHORT_IDS`.
   "permitted_addresses": [            // Emails from these addresses will be handled.
-    "ray.eldath@gmail.com",
-    "lizhaohan001@live.cn"
+    "ray.eldath@gmail.com"
+
   ],
   "email": {
     "name": "Ray Eldath",
-    "address": "test@live.cn", // Your email address, also used for login email server.
-    "password": "TestForTest@!%!",       // Password of your email.
+    "address": "test@live.cn",          // Your email address, also used for login email server.
+    "password": "TestForTest@!%!",      // Password of your email.
     "sender": {                         // Config sender server.
       "protocol": "SMTP",               // Only support SMTP protocol yet.
       "host": "smtp-mail.outlook.com",  // Server host.
@@ -69,9 +80,9 @@ This part explains config file `config.json`.
       ]
     }
   },
-  "debug": false
+  "debug": false                           // Only for debug purpose.
 }
-``` 
+```
 
 ## Expend
 This part describes how to add custom commend handler into EmailEverything.

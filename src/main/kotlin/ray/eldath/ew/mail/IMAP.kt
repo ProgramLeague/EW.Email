@@ -3,7 +3,7 @@ package ray.eldath.ew.mail
 import ray.eldath.ew.util.ReceivedEmail
 import ray.eldath.ew.util.ReceivedEmailSet
 
-class IMAP(server: String, port: Int, username: String, password: String, ssl: Boolean) : ReceiveEmail {
+class IMAP(server: String, port: Int, username: String, password: String, ssl: Boolean = false) : ReceiveEmail {
 
 	private val share = Share("imap", server, port, username, password, ssl)
 

@@ -19,11 +19,14 @@ fun <T> List<T>.addSingle(entry: T): List<T> {
 }
 
 object Config {
-	private val OBJECT = JSONTokener(Files.newBufferedReader(Paths.get("config.json"))).nextValue() as JSONObject
+	val CURRENT_PATH = System.getProperty("user.dir")!!
+
+	private val OBJECT = JSONTokener(Files.newBufferedReader(Paths.get("$CURRENT_PATH/config.json"))).nextValue() as JSONObject
 	private val HANDLER_CONFIG = OBJECT.getJSONObject("handler")!!
 
 	val EMAIL_HOST_CONFIG = parseEmailHostConfig()
 	val PERMITTED_ADDRESSES = parseStringList(OBJECT.getJSONArray("permitted_addresses")).addSingle("debug@debug.com")
+	val DAEMON = OBJECT.getBoolean("daemon")
 	val DEBUG = OBJECT.getBoolean("debug")
 	val DEBUG_RECEIVED_MAIL_SET =
 			fakeReceivedEmailSet(listOf(

@@ -5,7 +5,6 @@ import ray.eldath.ew.tool.EmailFromDecoder
 import ray.eldath.ew.util.ReceivedEmail
 import ray.eldath.ew.util.ReceivedEmailSet
 import java.io.Closeable
-import java.security.Security
 import java.time.ZoneId
 import java.util.*
 import javax.mail.*
@@ -26,15 +25,15 @@ class Share(protocol: String, server: String, port: Int,
 	private lateinit var messages: Array<Message>
 
 	init {
-		prop.put("mail.store.protocol", protocol)
-		prop.put("mail.$protocol.host", server)
-		prop.put("mail.$protocol.port", port)
+		prop["mail.store.protocol"] = protocol
+		prop["mail.$protocol.host"] = server
+		prop["mail.$protocol.port"] = port
 		if (ssl) {
-			Security.addProvider(com.sun.net.ssl.internal.ssl.Provider())
-			prop.put("mail.$protocol.socketFactory.class", "javax.net.ssl.SSLSocketFactory")
-			prop.put("mail.$protocol.socketFactory.fallback", false)
-			prop.put("mail.$protocol.socketFactory.port", port)
-			prop.put("mail.$protocol.auth", true)
+			// Security.addProvider(com.sun.net.ssl.internal.ssl.Provider())
+			prop["mail.$protocol.socketFactory.class"] = "javax.net.ssl.SSLSocketFactory"
+			prop["mail.$protocol.socketFactory.fallback"] = false
+			prop["mail.$protocol.socketFactory.port"] = port
+			prop["mail.$protocol.auth"] = true
 		}
 	}
 
